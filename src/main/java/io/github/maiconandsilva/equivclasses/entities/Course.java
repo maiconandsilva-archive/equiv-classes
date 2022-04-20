@@ -1,16 +1,22 @@
 package io.github.maiconandsilva.equivclasses.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
+import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.Set;
 
 @Entity
-@Data
-@EqualsAndHashCode(callSuper=false)
+@Getter
+@Setter
+@NoArgsConstructor
+@RequiredArgsConstructor
 public class Course extends AbstractPersistable<Long>  {
     private String name;
     private String period;
+
+    @OneToMany(mappedBy = "course")
+    Set<AcademicClass> academicClasses;
 }
