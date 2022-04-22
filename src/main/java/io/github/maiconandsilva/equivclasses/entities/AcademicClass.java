@@ -1,6 +1,7 @@
 package io.github.maiconandsilva.equivclasses.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 
 import lombok.*;
@@ -20,6 +21,6 @@ public class AcademicClass extends AbstractPersistable<Long> {
     @ManyToOne(optional = false)
     private Course course;
 
-    @ManyToOne
-    EquivalentClass equivalentClass;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private EquivalentClass equivalentClass;
 }

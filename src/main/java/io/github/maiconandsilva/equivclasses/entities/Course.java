@@ -18,5 +18,5 @@ public class Course extends AbstractPersistable<Long>  {
     private String period;
 
     @OneToMany(mappedBy = "course")
-    Set<AcademicClass> academicClasses;
+    private Set<AcademicClass> academicClasses;
 }
