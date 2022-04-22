@@ -1,9 +1,6 @@
 package io.github.maiconandsilva.equivclasses.entities;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class User extends AbstractPersistable<UUID> implements UserDetails {
 
     @NotNull
@@ -33,13 +30,13 @@ public class User extends AbstractPersistable<UUID> implements UserDetails {
     @NotBlank
     private String password;
 
+    @ManyToMany
+    private Set<Authority> authorities;
+
     private boolean active = true;
 
     @OneToOne(optional = false)
     private Course course;
-
-    @ManyToMany
-    private Set<Authority> authorities;
 
     @Override
     public boolean isEnabled() {

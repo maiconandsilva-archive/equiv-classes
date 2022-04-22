@@ -1,5 +1,6 @@
 package io.github.maiconandsilva.equivclasses.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -14,7 +15,7 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @Getter
 @Setter
 @NoArgsConstructor
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class AcademicClass extends AbstractPersistable<Long> {
     private String code;
 
