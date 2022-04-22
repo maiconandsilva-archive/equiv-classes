@@ -1,8 +1,8 @@
 package io.github.maiconandsilva.equivclasses.repositories;
 
-import io.github.maiconandsilva.equivclasses.entities.ClassInfo;
+import io.github.maiconandsilva.equivclasses.entities.Course;
+import org.springframework.data.repository.CrudRepository;
 
-public class CourseRepository {
-    // public Set<ClassInfo> findClassInfoByCourse();
-    // public Set<Course> findCourse();
+public interface CourseRepository extends CrudRepository<Course, Long> {
+    Course findByNameIgnoreCaseContaining(String name);
 }
