@@ -1,6 +1,6 @@
-package io.github.maiconandsilva.equivclasses.repositories;
+package io.github.maiconandsilva.equivclasses.data.repositories;
 
-import io.github.maiconandsilva.equivclasses.entities.Authority;
+import io.github.maiconandsilva.equivclasses.data.entities.Authority;
 import org.springframework.data.repository.CrudRepository;
 
 public interface AuthorityRepository extends CrudRepository<Authority, Long> {

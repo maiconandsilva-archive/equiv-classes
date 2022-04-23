@@ -1,6 +1,6 @@
-package io.github.maiconandsilva.equivclasses.repositories;
+package io.github.maiconandsilva.equivclasses.data.repositories;
 
-import io.github.maiconandsilva.equivclasses.entities.AcademicClass;
+import io.github.maiconandsilva.equivclasses.data.entities.AcademicClass;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Set;

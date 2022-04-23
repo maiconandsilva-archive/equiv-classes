@@ -1,6 +1,6 @@
-package io.github.maiconandsilva.equivclasses.repositories;
+package io.github.maiconandsilva.equivclasses.data.repositories;
 
-import io.github.maiconandsilva.equivclasses.entities.Course;
+import io.github.maiconandsilva.equivclasses.data.entities.Course;
 import org.springframework.data.repository.CrudRepository;
 
 public interface CourseRepository extends CrudRepository<Course, Long> {

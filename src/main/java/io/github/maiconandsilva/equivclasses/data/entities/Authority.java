@@ -1,4 +1,4 @@
-package io.github.maiconandsilva.equivclasses.entities;
+package io.github.maiconandsilva.equivclasses.data.entities;
 
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;

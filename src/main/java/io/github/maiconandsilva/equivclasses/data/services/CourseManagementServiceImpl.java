@@ -1,11 +1,11 @@
-package io.github.maiconandsilva.equivclasses.services;
+package io.github.maiconandsilva.equivclasses.data.services;
 
-import io.github.maiconandsilva.equivclasses.entities.AcademicClass;
-import io.github.maiconandsilva.equivclasses.entities.Course;
-import io.github.maiconandsilva.equivclasses.entities.EquivalentClass;
-import io.github.maiconandsilva.equivclasses.repositories.AcademicClassRepository;
-import io.github.maiconandsilva.equivclasses.repositories.CourseRepository;
-import io.github.maiconandsilva.equivclasses.repositories.EquivalentClassRepository;
+import io.github.maiconandsilva.equivclasses.data.entities.AcademicClass;
+import io.github.maiconandsilva.equivclasses.data.entities.Course;
+import io.github.maiconandsilva.equivclasses.data.entities.EquivalentClass;
+import io.github.maiconandsilva.equivclasses.data.repositories.AcademicClassRepository;
+import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
+import io.github.maiconandsilva.equivclasses.data.repositories.EquivalentClassRepository;
 import org.springframework.stereotype.Service;
 
 import javax.validation.ValidationException;

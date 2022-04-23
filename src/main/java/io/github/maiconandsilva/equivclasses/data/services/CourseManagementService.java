@@ -1,8 +1,8 @@
-package io.github.maiconandsilva.equivclasses.services;
+package io.github.maiconandsilva.equivclasses.data.services;
 
-import io.github.maiconandsilva.equivclasses.entities.AcademicClass;
-import io.github.maiconandsilva.equivclasses.entities.Course;
-import io.github.maiconandsilva.equivclasses.entities.EquivalentClass;
+import io.github.maiconandsilva.equivclasses.data.entities.AcademicClass;
+import io.github.maiconandsilva.equivclasses.data.entities.Course;
+import io.github.maiconandsilva.equivclasses.data.entities.EquivalentClass;
 
 public interface CourseManagementService {
     Course createCourse(Course course); // String code, String name);

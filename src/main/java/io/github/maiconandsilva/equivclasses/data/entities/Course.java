@@ -1,11 +1,11 @@
-package io.github.maiconandsilva.equivclasses.entities;
+package io.github.maiconandsilva.equivclasses.data.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import io.github.maiconandsilva.equivclasses.entities.enums.CoursePeriod;
+import io.github.maiconandsilva.equivclasses.data.entities.enums.CoursePeriod;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
