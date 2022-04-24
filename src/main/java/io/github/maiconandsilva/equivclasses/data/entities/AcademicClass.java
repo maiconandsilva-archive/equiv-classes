@@ -1,5 +1,10 @@
 package io.github.maiconandsilva.equivclasses.data.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
@@ -7,15 +12,12 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import lombok.*;
-import org.springframework.data.jpa.domain.AbstractPersistable;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class AcademicClass extends AbstractPersistable<Long> {
+public class AcademicClass extends BaseEntity<Long> {
 
     @NotBlank
     private String code;

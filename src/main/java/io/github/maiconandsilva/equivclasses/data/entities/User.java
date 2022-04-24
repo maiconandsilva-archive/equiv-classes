@@ -1,7 +1,9 @@
 package io.github.maiconandsilva.equivclasses.data.entities;
 
-import lombok.*;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends AbstractPersistable<UUID> implements UserDetails {
+public class User extends BaseEntity<UUID> implements UserDetails {
 
     @NotNull
     @Size(min = 6, max = 16)
