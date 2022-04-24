@@ -4,10 +4,7 @@ import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -35,7 +32,7 @@ public class User extends AbstractPersistable<UUID> implements UserDetails {
 
     private boolean active = true;
 
-    @OneToOne(optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     private Course course;
 
     @Override

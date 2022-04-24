@@ -16,6 +16,8 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AcademicClass extends AbstractPersistable<Long> {
+
+    @NotBlank
     private String code;
 
     @NotNull
@@ -23,7 +25,6 @@ public class AcademicClass extends AbstractPersistable<Long> {
     private String name;
 
     @Min(1)
-    @NotNull
     private Integer semester;
 
     /**
@@ -36,6 +37,6 @@ public class AcademicClass extends AbstractPersistable<Long> {
     @ManyToOne(optional = false)
     private Course course;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private EquivalentClass equivalentClass;
 }

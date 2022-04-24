@@ -11,6 +11,9 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class EquivalentClass extends AbstractPersistable<Long> {
-    @OneToMany(mappedBy = "equivalentClass")
+    @OneToMany(
+        mappedBy = "equivalentClass",
+        cascade = CascadeType.ALL,
+        orphanRemoval = true)
     private Set<AcademicClass> academicClasses;
 }
