@@ -8,7 +8,7 @@ import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.EquivalentClassRepository;
 import org.springframework.stereotype.Service;
 
-import javax.validation.ValidationException;
+import java.util.Arrays;
 
 @Service("courseManagementService")
 public class CourseManagementServiceImpl implements CourseManagementService {
@@ -37,18 +37,28 @@ public class CourseManagementServiceImpl implements CourseManagementService {
     }
 
     @Override
-    public EquivalentClass registerClassesEquivalency(Long equivalentClassId, Long classId) {
-        AcademicClass academicClass = academicClassRepository.findById(classId).orElseThrow(ValidationException::new);
-        EquivalentClass equivalentClass = equivalentClassRepository.findById(equivalentClassId)
-                                            .orElseGet(() -> equivalentClassRepository.save(new EquivalentClass()));
-        academicClass.setEquivalentClass(equivalentClass);
-        return equivalentClass;
+    public EquivalentClass registerClassesEquivalency(Long equivalentClassId, Long ...classId) {
+        EquivalentClass equivalentClass;
+
+        if (equivalentClassId == null) {
+            equivalentClass = new EquivalentClass();
+        } else {
+            equivalentClass = equivalentClassRepository.findById(equivalentClassId).orElseThrow();
+        }
+
+        for (AcademicClass ac: academicClassRepository.findAllById(Arrays.asList(classId))) {
+            equivalentClass.registerEquivalentClass(ac);
+        }
+        return equivalentClassRepository.save(equivalentClass);
     }
 
     @Override
-    public void removeClassesEquivalency(Long classId) {
-        AcademicClass academicClass = academicClassRepository.findById(classId).orElseThrow(ValidationException::new);
-        academicClass.setEquivalentClass(null);
-        academicClassRepository.save(academicClass);
+    public void removeClassesEquivalency(Long ...classId) {
+        Iterable<AcademicClass> academicClasses =
+                academicClassRepository.findAllById(Arrays.asList(classId));
+        for (AcademicClass ac: academicClasses) {
+            ac.getEquivalentClass().removeEquivalentClass(ac);
+        }
+        academicClassRepository.saveAll(academicClasses);
     }
 }
