@@ -25,4 +25,9 @@ public class EquivalentClass extends BaseEntity<Long> {
         academicClass.setEquivalentClass(this);
         academicClasses.add(academicClass);
     }
+
+    public void removeEquivalentClass(AcademicClass academicClass) {
+        academicClass.setEquivalentClass(null);
+        academicClasses.remove(academicClass);
+    }
 }
