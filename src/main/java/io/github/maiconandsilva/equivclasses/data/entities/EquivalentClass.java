@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -18,5 +19,10 @@ public class EquivalentClass extends BaseEntity<Long> {
         mappedBy = "equivalentClass",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
-    private Set<AcademicClass> academicClasses;
+    private Set<AcademicClass> academicClasses = new HashSet<>();
+
+    public void registerEquivalentClass(AcademicClass academicClass) {
+        academicClass.setEquivalentClass(this);
+        academicClasses.add(academicClass);
+    }
 }

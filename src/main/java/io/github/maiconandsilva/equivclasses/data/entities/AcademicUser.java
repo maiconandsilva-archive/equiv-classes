@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -18,19 +21,19 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User extends BaseEntity<UUID> implements UserDetails {
+public class AcademicUser extends BaseEntity<UUID> implements UserDetails {
 
     @NotNull
     @Size(min = 6, max = 16)
     @Column(unique = true)
-    private String username;
+    private String username = "";
 
     @NotNull
     @NotBlank
     private String password;
 
     @ManyToMany
-    private Set<Authority> authorities;
+    private Set<Authority> authorities = new HashSet<>();
 
     private boolean active = true;
 
