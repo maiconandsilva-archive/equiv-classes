@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - $DB_PORT:5432
+    environment:
+      POSTGRES_DB: $DB_DATABASE
+      POSTGRES_USER: $DB_USER
+      POSTGRES_PASSWORD: $DB_PASS
