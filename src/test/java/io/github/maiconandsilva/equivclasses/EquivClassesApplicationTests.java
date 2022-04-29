@@ -2,7 +2,7 @@ package io.github.maiconandsilva.equivclasses;
 
 import io.github.maiconandsilva.equivclasses.data.entities.*;
 import io.github.maiconandsilva.equivclasses.data.repositories.*;
-import io.github.maiconandsilva.equivclasses.data.services.CourseManagementService;
+import io.github.maiconandsilva.equivclasses.data.services.AcademicClassManagementService;
 import io.github.maiconandsilva.equivclasses.data.services.UserManagementService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,7 +19,7 @@ import java.util.Set;
 class EquivClassesApplicationTests {
 
     @Autowired
-    CourseManagementService courseManagementService;
+    AcademicClassManagementService academicClassManagementService;
 
     @Autowired
     UserManagementService userManagementService;
@@ -54,8 +54,8 @@ class EquivClassesApplicationTests {
 	    course1.setName("Test Repository");
 	    course1.setCode("TTRP-2");
 
-        courseManagementService.createCourse(course);
-        courseManagementService.createCourse(course1);
+        academicClassManagementService.createCourse(course);
+        academicClassManagementService.createCourse(course1);
 
         Assertions.assertNotNull(course.getId());
         Assertions.assertNotNull(course1.getId());
@@ -104,13 +104,13 @@ class EquivClassesApplicationTests {
         academicClass2.setSemester(1);
         academicClass2.setWorkload(80);
 
-        courseManagementService.registerClass(1L, academicClass);
-        courseManagementService.registerClass(1L, academicClass2);
+        academicClassManagementService.registerClass(1L, academicClass);
+        academicClassManagementService.registerClass(1L, academicClass2);
 
         Assertions.assertNotNull(academicClass.getId());
         Assertions.assertNotNull(academicClass2.getId());
 
-        courseManagementService.registerClassesEquivalency(
+        academicClassManagementService.registerClassesEquivalency(
                 null, academicClass.getId(), academicClass2.getId());
 
         EquivalentClass eq = equivalentClassRepository.findByAcademicClassesContains(academicClass2);
@@ -127,7 +127,7 @@ class EquivClassesApplicationTests {
                 academicClassRepository.findAllByCourse(
                         courseRepository.findById(1L).orElseThrow()).size());
 
-        courseManagementService.removeClassesEquivalency(academicClass.getId());
+        academicClassManagementService.removeClassesEquivalency(academicClass.getId());
         EquivalentClass eq2 = equivalentClassRepository.findByAcademicClassesContains(academicClass2);
 
         Assertions.assertEquals(1, eq2.getAcademicClasses().size());
