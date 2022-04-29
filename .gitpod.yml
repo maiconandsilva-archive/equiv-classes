@@ -2,6 +2,8 @@ ports:
   - port: 8080
     visibility: public
 tasks:
+  - before: |
+      cp .env.sample .env
   - init: |
       docker-compose pull
   - command: |
