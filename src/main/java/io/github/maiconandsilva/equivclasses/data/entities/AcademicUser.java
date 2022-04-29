@@ -1,5 +1,7 @@
 package io.github.maiconandsilva.equivclasses.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.github.maiconandsilva.equivclasses.utils.View;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,7 @@ public class AcademicUser extends BaseEntity<UUID> implements UserDetails {
     @NotNull
     @Size(min = 6, max = 16)
     @Column(unique = true)
+    @JsonView(View.Short.class)
     private String username = "";
 
     @NotNull
@@ -35,9 +38,11 @@ public class AcademicUser extends BaseEntity<UUID> implements UserDetails {
     @ManyToMany
     private Set<Authority> authorities = new HashSet<>();
 
+    @JsonView(View.Short.class)
     private boolean active = true;
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonView(View.Extended.class)
     private Course course;
 
     @Override

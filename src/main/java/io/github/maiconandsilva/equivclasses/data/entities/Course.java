@@ -1,5 +1,7 @@
 package io.github.maiconandsilva.equivclasses.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.github.maiconandsilva.equivclasses.utils.View;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,12 +23,15 @@ public class Course extends BaseEntity<Long> {
 
     @NotNull
     @NotBlank
+    @JsonView(View.Short.class)
     private String code;
 
     @NotNull
     @NotBlank
+    @JsonView(View.Short.class)
     private String name;
 
     @OneToMany(mappedBy = "course")
+    @JsonView(View.Extended.class)
     private Set<AcademicClass> academicClasses = new HashSet<>();
 }

@@ -1,5 +1,7 @@
 package io.github.maiconandsilva.equivclasses.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import io.github.maiconandsilva.equivclasses.utils.View;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,7 @@ public class EquivalentClass extends BaseEntity<Long> {
         mappedBy = "equivalentClass",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
+    @JsonView(View.Short.class)
     private Set<AcademicClass> academicClasses = new HashSet<>();
 
     public void registerEquivalentClass(AcademicClass academicClass) {
