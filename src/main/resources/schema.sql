@@ -1,87 +1,84 @@
-DROP SEQUENCE hibernate_sequence IF EXISTS;
-DROP TABLE academic_user_authorities IF EXISTS CASCADE;
-DROP TABLE academic_user IF EXISTS CASCADE;
-DROP TABLE equivalent_class IF EXISTS CASCADE;
-DROP TABLE course IF EXISTS CASCADE;
-DROP TABLE authority IF EXISTS CASCADE;
-DROP TABLE academic_class IF EXISTS CASCADE;
+DROP SEQUENCE IF EXISTS hibernate_sequence;
+DROP TABLE IF EXISTS academic_user_authorities CASCADE;
+DROP TABLE IF EXISTS academic_user CASCADE;
+DROP TABLE IF EXISTS equivalent_class CASCADE;
+DROP TABLE IF EXISTS course CASCADE;
+DROP TABLE IF EXISTS authority CASCADE;
+DROP TABLE IF EXISTS academic_class CASCADE;
 
-create sequence hibernate_sequence start with 200 increment by 1;
+create sequence hibernate_sequence start 200 increment 1;
 
     create table academic_class (
-       id bigint not null,
+       id int8 not null,
         code varchar(255),
         name varchar(255) not null,
-        semester integer check (semester>=1),
-        workload integer check (workload>=1),
-        course_id bigint not null,
-        equivalent_class_id bigint,
+        semester int4 check (semester>=1),
+        workload int4 check (workload>=1),
+        course_id int8 not null,
+        equivalent_class_id int8,
         primary key (id)
     );
 
+    create table academic_user (
+       id uuid not null,
+        active boolean not null,
+        password varchar(255) not null,
+        username varchar(16) not null,
+        course_id int8,
+        primary key (id)
+    );
+
+    create table academic_user_authorities (
+       academic_user_id uuid not null,
+        authorities_id int8 not null,
+        primary key (academic_user_id, authorities_id)
+    );
+
     create table authority (
-       id bigint not null,
+       id int8 not null,
         name varchar(255) not null,
         primary key (id)
     );
 
     create table course (
-       id bigint not null,
+       id int8 not null,
         code varchar(255) not null,
         name varchar(255) not null,
         primary key (id)
     );
 
     create table equivalent_class (
-       id bigint not null,
+       id int8 not null,
         primary key (id)
     );
 
-    create table academic_user (
-       id binary(255) not null,
-        username varchar(16) not null,
-        password varchar(255) not null,
-        active boolean not null,
-        course_id bigint,
-        primary key (id)
-    );
+    alter table academic_user 
+       add constraint UK_qtrmfd5eblg6ga5iqrx0drt2u unique (username);
 
-    create table academic_user_authorities (
-        academic_user_id binary(255) not null,
-        authorities_id bigint not null,
-        primary key (academic_user_id, authorities_id)
-    );
-
-    alter table authority
+    alter table authority 
        add constraint UK_jdeu5vgpb8k5ptsqhrvamuad2 unique (name);
 
-    alter table academic_user
-       add constraint UK_tniqa4knwfiv5c7pa01sh0ma unique (course_id);
-
-    alter table academic_user
-       add constraint UK_sb8bbouer5wak8vyiiy4pf2bx unique (username);
-
-    alter table academic_class
-       add constraint FKab86osg7cdjy6fs427lous01f
-       foreign key (course_id)
+    alter table academic_class 
+       add constraint FKab86osg7cdjy6fs427lous01f 
+       foreign key (course_id) 
        references course;
 
-    alter table academic_class
-       add constraint FKk6lmvueyqeawgvb3x6a2mdstw
-       foreign key (equivalent_class_id)
+    alter table academic_class 
+       add constraint FKk6lmvueyqeawgvb3x6a2mdstw 
+       foreign key (equivalent_class_id) 
        references equivalent_class;
 
-    alter table academic_user
-       add constraint FKj8ce5cjkm11igsffixdxexrr9
-       foreign key (course_id)
+    alter table academic_user 
+       add constraint FK4thhcvin58pt1fvru8ketlvfi 
+       foreign key (course_id) 
        references course;
 
-    alter table academic_user_authorities
-       add constraint FKdd8lhvujos470g40gikxj22mb
-       foreign key (authorities_id)
+    alter table academic_user_authorities 
+       add constraint FKqbkffaqfrsfc8g342yawj4gqw 
+       foreign key (authorities_id) 
        references authority;
 
-    alter table academic_user_authorities
-       add constraint FKmj13d0mnuj4cd8b6htotbf9mm
-       foreign key (academic_user_id)
+    alter table academic_user_authorities 
+       add constraint FK4ose9r0jk7vrdn5n1ue9avuvk 
+       foreign key (academic_user_id) 
        references academic_user;

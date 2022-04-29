@@ -153,12 +153,18 @@ INSERT INTO authority (id, name) VALUES
 (2, 'ROLE_USER')
 ;
 
--- INSERT INTO academic_user (id, username, password, course_id) VALUES
--- (1, 'admin', '', null),
--- (2, 'user', '', 1)
--- ;
+INSERT INTO academic_user (id,active,username, "password",course_id) VALUES
+('acdaedd5-e318-4672-a514-30f2125a2f0d'::uuid,true, 'admin',
+ '$2a$10$1bZt86uJkwrn6cjgNe2G5.LbRSGSPfFcucoJmye1KSpXmI6E8oZmi',1);
+-- password: testing
 
--- INSERT INTO user_authorities (academic_user_id, authorities_id) VALUES
--- (1, 1),
--- (2, 2)
--- ;
+INSERT INTO academic_user (id,active,username, "password",course_id) VALUES
+('acdaedd5-e318-4672-a514-30f2125a2f01'::uuid,true, 'user',
+ '$2a$10$1bZt86uJkwrn6cjgNe2G5.LbRSGSPfFcucoJmye1KSpXmI6E8oZmi',1);
+-- password: testing
+
+INSERT INTO academic_user_authorities (academic_user_id,authorities_id) VALUES
+('acdaedd5-e318-4672-a514-30f2125a2f0d'::uuid, 2);
+
+INSERT INTO academic_user_authorities (academic_user_id,authorities_id) VALUES
+('acdaedd5-e318-4672-a514-30f2125a2f01'::uuid, 1);
