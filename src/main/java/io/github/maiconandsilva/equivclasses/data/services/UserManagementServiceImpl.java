@@ -5,6 +5,8 @@ import io.github.maiconandsilva.equivclasses.data.entities.Course;
 import io.github.maiconandsilva.equivclasses.data.repositories.AuthorityRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -37,5 +39,14 @@ public class UserManagementServiceImpl implements UserManagementService {
         }
         user.setCourse(course);
         return userRepository.save(user);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        AcademicUser user = userRepository.findByUsernameIgnoreCase(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found for username " + username);
+        }
+        return user;
     }
 }
