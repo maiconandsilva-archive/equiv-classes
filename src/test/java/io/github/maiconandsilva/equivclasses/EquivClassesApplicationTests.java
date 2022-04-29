@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +46,7 @@ class EquivClassesApplicationTests {
 	}
 
 	@Test
+    @WithMockUser(roles = "ADMIN")
     void courseCreationTest() {
 	    Course course = new Course();
 	    course.setName("Repository Test");
@@ -65,6 +67,7 @@ class EquivClassesApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void userCreationTest() {
 	    Course course = courseRepository.findById(1L).orElseThrow();
 
@@ -88,6 +91,7 @@ class EquivClassesApplicationTests {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     void academicClassCreationTest() {
         int courseClassesNumBefore = academicClassRepository.findAllByCourse(
                 courseRepository.findById(1L).orElseThrow()).size();
