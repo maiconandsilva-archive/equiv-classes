@@ -4,7 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.maiconandsilva.equivclasses.data.entities.AcademicUser;
 import io.github.maiconandsilva.equivclasses.data.services.UserManagementService;
 import io.github.maiconandsilva.equivclasses.security.JwtUtils;
-import io.github.maiconandsilva.equivclasses.utils.dtos.Auth;
+import io.github.maiconandsilva.equivclasses.utils.dtos.UserLogin;
+import io.github.maiconandsilva.equivclasses.utils.dtos.UserRegistration;
 import io.github.maiconandsilva.equivclasses.utils.dtos.Token;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,18 +29,19 @@ public class UserController {
     }
 
     @PostMapping(path = "/register")
-    public Token register(@RequestBody Auth authInfo) throws JsonProcessingException {
+    public Token register(@RequestBody UserRegistration userRegistration)
+                throws JsonProcessingException {
         AcademicUser academicUser = new AcademicUser();
-        academicUser.setUsername(authInfo.getUsername());
-        academicUser.setPassword(authInfo.getPassword());
-        userManagementService.registerUser(academicUser, authInfo.getCourseId());
-        return login(authInfo);
+        academicUser.setUsername(userRegistration.getUsername());
+        academicUser.setPassword(userRegistration.getPassword());
+        userManagementService.registerUser(academicUser, userRegistration.getCourseId());
+        return login(new UserLogin(userRegistration.getUsername(), userRegistration.getPassword()));
     }
 
     @PostMapping(path = "/login")
-    public Token login(@RequestBody Auth authInfo) throws JsonProcessingException {
+    public Token login(@RequestBody UserLogin userLogin) throws JsonProcessingException {
         Authentication auth = new UsernamePasswordAuthenticationToken(
-                authInfo.getUsername(), authInfo.getPassword());
+                userLogin.getUsername(), userLogin.getPassword());
         auth = authManager.authenticate(auth);
         return new Token(jwtUtils.generateToken(auth));
     }

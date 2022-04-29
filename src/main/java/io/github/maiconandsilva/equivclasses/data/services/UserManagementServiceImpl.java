@@ -5,6 +5,7 @@ import io.github.maiconandsilva.equivclasses.data.entities.Course;
 import io.github.maiconandsilva.equivclasses.data.repositories.AuthorityRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,6 +31,7 @@ public class UserManagementServiceImpl implements UserManagementService {
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public AcademicUser registerUser(AcademicUser user, Long courseId) {
         Course course = courseRepository.findById(courseId).orElseThrow(ValidationException::new);
         user.setUsername(user.getUsername().toLowerCase());

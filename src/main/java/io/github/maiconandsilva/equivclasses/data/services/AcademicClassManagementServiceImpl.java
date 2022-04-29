@@ -6,6 +6,7 @@ import io.github.maiconandsilva.equivclasses.data.entities.EquivalentClass;
 import io.github.maiconandsilva.equivclasses.data.repositories.AcademicClassRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.EquivalentClassRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,18 +28,21 @@ public class AcademicClassManagementServiceImpl implements AcademicClassManageme
     }
 
     @Override
-    public Course createCourse(Course course) { // String code, String name) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public Course createCourse(Course course) {
         return courseRepository.save(course);
     }
 
     @Override
-    public AcademicClass registerClass(Long courseId, AcademicClass academicClass) {//String code, String name, Integer semester, Integer workload) {
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public AcademicClass registerClass(Long courseId, AcademicClass academicClass) {
         Course course = courseRepository.findById(courseId).orElseThrow();
         academicClass.setCourse(course);
         return academicClassRepository.save(academicClass);
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public EquivalentClass registerClassesEquivalency(Long equivalentClassId, Long ...classId) {
         EquivalentClass equivalentClass;
 
@@ -55,6 +59,7 @@ public class AcademicClassManagementServiceImpl implements AcademicClassManageme
     }
 
     @Override
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void removeClassesEquivalency(Long ...classId) {
         Iterable<AcademicClass> academicClasses =
                 academicClassRepository.findAllById(Arrays.asList(classId));

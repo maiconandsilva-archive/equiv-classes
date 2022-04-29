@@ -1,11 +1,15 @@
 package io.github.maiconandsilva.equivclasses.utils.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class Auth {
+@AllArgsConstructor
+@NoArgsConstructor
+public class UserRegistration {
     private Long courseId;
     private String username;
     private String password;

@@ -3,6 +3,7 @@ package io.github.maiconandsilva.equivclasses.security;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.maiconandsilva.equivclasses.data.entities.AcademicUser;
+import io.github.maiconandsilva.equivclasses.utils.dtos.UserLogin;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,12 +28,13 @@ public class JwtUtils {
 
     public String generateToken(Authentication user) throws JsonProcessingException {
         AcademicUser academicUser = (AcademicUser) user.getPrincipal();
-        academicUser.setPassword(null);
+        UserLogin userLogin = new UserLogin(
+                academicUser.getUsername(),
+                academicUser.getPassword(),
+                academicUser.getAuthorities());
 
         ObjectMapper mapper = new ObjectMapper();
-        String userJson = mapper.writeValueAsString(academicUser);
-//        Long hora = 1000L * 60L * 60L; // Uma hora
-
+        String userJson = mapper.writeValueAsString(userLogin);
         return Jwts.builder().claim("userDetails", userJson)
             .setIssuer(issuer)
             .setSubject(user.getName())
@@ -43,10 +45,10 @@ public class JwtUtils {
     public Authentication parseToken(String token) throws JsonParseException, IOException {
         ObjectMapper mapper = new ObjectMapper();
         String credentialsJson =
-            Jwts.parser().setSigningKey(KEY)
-                .parseClaimsJws(token)
+            Jwts.parser().setSigningKey(KEY).parseClaimsJws(token)
                 .getBody().get("userDetails", String.class);
-        AcademicUser user = mapper.readValue(credentialsJson, AcademicUser.class);
+        UserLogin user = mapper.readValue(credentialsJson, UserLogin.class);
+
         return new UsernamePasswordAuthenticationToken(
                 user.getUsername(), user.getPassword(), user.getAuthorities());
     }
