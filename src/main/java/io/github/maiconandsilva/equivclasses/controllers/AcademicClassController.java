@@ -26,7 +26,7 @@ public class AcademicClassController {
         this.equivalentClassRepository = equivalentClassRepository;
     }
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     @JsonView(View.Short.class)
     public Iterable<AcademicClass> search(@RequestParam("s") String search) {
         if (search == null) {
