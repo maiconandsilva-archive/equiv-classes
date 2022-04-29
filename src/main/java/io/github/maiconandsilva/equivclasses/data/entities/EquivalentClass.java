@@ -21,7 +21,7 @@ public class EquivalentClass extends BaseEntity<Long> {
         mappedBy = "equivalentClass",
         cascade = CascadeType.ALL,
         orphanRemoval = true)
-    @JsonView(View.Short.class)
+    @JsonView(View.ShortEquivalentClass.class)
     private Set<AcademicClass> academicClasses = new HashSet<>();
 
     public void registerEquivalentClass(AcademicClass academicClass) {
