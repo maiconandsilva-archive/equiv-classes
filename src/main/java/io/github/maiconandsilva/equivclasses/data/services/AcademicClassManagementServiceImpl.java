@@ -7,18 +7,20 @@ import io.github.maiconandsilva.equivclasses.data.repositories.AcademicClassRepo
 import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.EquivalentClassRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 
+@Transactional
 @Service("courseManagementService")
-public class CourseManagementServiceImpl implements CourseManagementService {
-    final AcademicClassRepository academicClassRepository;
-    final CourseRepository courseRepository;
-    final EquivalentClassRepository equivalentClassRepository;
+public class AcademicClassManagementServiceImpl implements AcademicClassManagementService {
+    private final AcademicClassRepository academicClassRepository;
+    private final CourseRepository courseRepository;
+    private final EquivalentClassRepository equivalentClassRepository;
 
-    public CourseManagementServiceImpl(AcademicClassRepository academicClassRepository,
-                                       CourseRepository courseRepository,
-                                       EquivalentClassRepository equivalentClassRepository) {
+    public AcademicClassManagementServiceImpl(AcademicClassRepository academicClassRepository,
+                                              CourseRepository courseRepository,
+                                              EquivalentClassRepository equivalentClassRepository) {
         this.academicClassRepository = academicClassRepository;
         this.courseRepository = courseRepository;
         this.equivalentClassRepository = equivalentClassRepository;
