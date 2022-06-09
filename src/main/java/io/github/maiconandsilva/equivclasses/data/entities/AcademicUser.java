@@ -6,9 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -26,7 +24,7 @@ import java.util.UUID;
 public class AcademicUser extends BaseEntity<UUID> implements UserDetails {
 
     @NotNull
-    @Size(min = 6, max = 16)
+    @Size(min = 3, max = 16)
     @Column(unique = true)
     @JsonView(View.Short.class)
     private String username = "";
