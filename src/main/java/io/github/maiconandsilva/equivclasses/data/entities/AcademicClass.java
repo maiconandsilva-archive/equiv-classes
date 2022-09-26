@@ -22,12 +22,12 @@ import javax.validation.constraints.NotNull;
 public class AcademicClass extends BaseEntity<Long> {
 
     @NotBlank
-    @JsonView(View.Short.class)
+    @JsonView(View.Minimal.class)
     private String code;
 
     @NotNull
     @NotBlank
-    @JsonView(View.Short.class)
+    @JsonView(View.Minimal.class)
     private String name;
 
     @Min(1)

@@ -2,6 +2,7 @@ package io.github.maiconandsilva.equivclasses.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import io.github.maiconandsilva.equivclasses.data.entities.AcademicClass;
+import io.github.maiconandsilva.equivclasses.data.entities.EquivalentClass;
 import io.github.maiconandsilva.equivclasses.data.repositories.AcademicClassRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.CourseRepository;
 import io.github.maiconandsilva.equivclasses.data.repositories.EquivalentClassRepository;
@@ -9,6 +10,8 @@ import io.github.maiconandsilva.equivclasses.utils.View;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
+
+import static io.github.maiconandsilva.equivclasses.utils.requests.RequestErrorHandler.getOr404;
 
 @RestController
 @RequestMapping(value = "/classes")
@@ -27,8 +30,9 @@ public class AcademicClassController {
     }
 
     @GetMapping(path = "")
-    @JsonView(View.Short.class)
-    public Iterable<AcademicClass> search(@RequestParam("s") String search) {
+    @JsonView(View.Extended.class)
+    public Iterable<AcademicClass> search(
+            @RequestParam(value = "s", required = false) String search) {
         if (search == null) {
             return academicClassRepository.findAll();
         }
@@ -41,9 +45,15 @@ public class AcademicClassController {
         return academicClassRepository.findById(id).orElseThrow();
     }
 
-    @GetMapping(path = "/equivalents/{classId}")
+    @GetMapping(path = "/equivalents/class/{classId}")
     @JsonView(View.Short.class)
-    public Set<AcademicClass> equivalentClasses(@PathVariable Long classId) {
+    public Set<AcademicClass> equivalentClassesFromClass(@PathVariable Long classId) {
         return academicClassRepository.findAllEquivalentsByAcademicClassId(classId);
+    }
+
+    @GetMapping(path = "/equivalents/{equivId}")
+    @JsonView(View.ShortEquivalentClass.class)
+    public EquivalentClass equivalentClasses(@PathVariable Long equivId) {
+        return getOr404(equivalentClassRepository.findById(equivId));
     }
 }
