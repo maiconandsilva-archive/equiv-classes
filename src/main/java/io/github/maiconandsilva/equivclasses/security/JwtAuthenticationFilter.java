@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.Assert;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -23,7 +24,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         HttpServletResponse servletResponse = (HttpServletResponse) response;
         ApplicationContext ctx =
                 WebApplicationContextUtils.getWebApplicationContext(request.getServletContext());
-        assert ctx != null;
+        Assert.notNull(ctx, "Context shouldn't be null");
         JwtUtils jwtUtils = ctx.getBean(JwtUtils.class);
 
         String authorization = servletRequest.getHeader(HttpHeaders.AUTHORIZATION);
